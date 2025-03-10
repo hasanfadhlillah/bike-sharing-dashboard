@@ -17,17 +17,17 @@ Dashboard ini menganalisis data bike sharing untuk mengidentifikasi pola dan tre
 bike-sharing-dashboard/
 │
 ├── dashboard/
-│   └── dashboard.py      # File utama aplikasi Streamlit
+│   └── dashboard.py       # File utama aplikasi Streamlit
 │
 ├── data/
-│   ├── day.csv           # Dataset per hari
-│   └── hour.csv          # Dataset per jam
+│   ├── day.csv            # Dataset per hari
+│   └── hour.csv           # Dataset per jam
 │
-├── README.md             # Dokumentasi proyek
-├── requirements.txt      # Daftar package yang dibutuhkan
-├── notebook.ipynb
-├── rangkuman_insight.txt
-└── url.txt
+├── README.md              # Dokumentasi proyek
+├── requirements.txt       # Daftar package yang dibutuhkan
+├── notebook.ipynb         # Notebook analisis data
+├── rangkuman_insight.txt  # Rangkuman insight analisis data
+└── url.txt                # URL dashboard streamlit cloud
 ```
 
 ## ⚙️ Setup Environment
