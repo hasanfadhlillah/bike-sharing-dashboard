@@ -1,19 +1,13 @@
 # 🚲 Bike Sharing Analysis Dashboard
 
-<div align="center">
-  <img src="/api/placeholder/800/300" alt="Bike Sharing Dashboard Banner"/>
-  <br><br>
-  <p>Sebuah dashboard interaktif untuk menganalisis pola dan tren penggunaan sepeda menggunakan Streamlit.</p>
-  <br>
-  <p>
-    <img src="https://img.shields.io/badge/Python-3.10-blue?logo=python" alt="Python 3.10"/>
-    <img src="https://img.shields.io/badge/Streamlit-1.43.1-FF4B4B?logo=streamlit" alt="Streamlit"/>
-    <img src="https://img.shields.io/badge/Pandas-Latest-150458?logo=pandas" alt="Pandas"/>
-    <img src="https://img.shields.io/badge/Scikit--learn-Latest-F7931E?logo=scikit-learn" alt="Scikit-learn"/>
-    <img src="https://img.shields.io/badge/Matplotlib-Latest-11557c?logo=python" alt="Matplotlib"/>
-    <img src="https://img.shields.io/badge/Seaborn-Latest-7db0bc?logo=python" alt="Seaborn"/>
-  </p>
-</div>
+Sebuah dashboard interaktif untuk menganalisis pola dan tren penggunaan sepeda menggunakan Streamlit.
+
+[![Python 3.10](https://img.shields.io/badge/Python-3.10-blue?logo=python)](https://www.python.org/)
+[![Streamlit 1.43.1](https://img.shields.io/badge/Streamlit-1.43.1-FF4B4B?logo=streamlit)](https://streamlit.io/)
+[![Pandas](https://img.shields.io/badge/Pandas-Latest-150458?logo=pandas)](https://pandas.pydata.org/)
+[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-Latest-F7931E?logo=scikit-learn)](https://scikit-learn.org/)
+[![Matplotlib](https://img.shields.io/badge/Matplotlib-Latest-11557c?logo=python)](https://matplotlib.org/)
+[![Seaborn](https://img.shields.io/badge/Seaborn-Latest-7db0bc?logo=python)](https://seaborn.pydata.org/)
 
 ## 📋 Project Description
 
@@ -23,10 +17,6 @@ Dashboard ini menganalisis data bike sharing untuk mengidentifikasi pola dan tre
 - **Time Analysis**: Analisis pola penggunaan berdasarkan jam, hari, dan musim
 - **Weather Analysis**: Dampak cuaca terhadap jumlah penyewaan sepeda
 - **Clustering**: Analisis pengelompokan pola penyewaan per jam
-
-<div align="center">
-  <img src="/api/placeholder/600/250" alt="Dashboard Preview"/>
-</div>
 
 ## 🛠️ Project Structure
 
@@ -89,10 +79,6 @@ streamlit run dashboard.py
    - Local URL: http://localhost:8501
    - Network URL: http://192.168.xxx.xxx:8501
 
-<div align="center">
-  <img src="/api/placeholder/600/180" alt="Application Running"/>
-</div>
-
 ## 📊 Dashboard Features
 
 ### 1. Overview
@@ -110,19 +96,6 @@ streamlit run dashboard.py
 
 ### 4. Clustering
 - Analisis klaster untuk mengidentifikasi pola penyewaan berdasarkan jam dan hari
-
-<div align="center">
-  <table>
-    <tr>
-      <td><img src="/api/placeholder/250/150" alt="Time Analysis"/></td>
-      <td><img src="/api/placeholder/250/150" alt="Weather Analysis"/></td>
-    </tr>
-    <tr>
-      <td align="center">Time Analysis</td>
-      <td align="center">Weather Analysis</td>
-    </tr>
-  </table>
-</div>
 
 ## ⚠️ Troubleshooting
 
@@ -150,22 +123,13 @@ Pastikan bahwa:
 
 - Dashboard ini menggunakan Streamlit version 1.43.1
 - Beberapa library yang digunakan:
-  - <img src="/api/placeholder/15/15" alt="Pandas"/> Pandas - Manipulasi data
-  - <img src="/api/placeholder/15/15" alt="NumPy"/> NumPy - Operasi numerik
-  - <img src="/api/placeholder/15/15" alt="Matplotlib"/> Matplotlib - Visualisasi data
-  - <img src="/api/placeholder/15/15" alt="Seaborn"/> Seaborn - Visualisasi data statistik
-  - <img src="/api/placeholder/15/15" alt="Scikit-learn"/> Scikit-learn - Machine learning
+  - Pandas - Manipulasi data
+  - NumPy - Operasi numerik
+  - Matplotlib - Visualisasi data
+  - Seaborn - Visualisasi data statistik
+  - Scikit-learn - Machine learning
 - Data yang digunakan adalah dataset bike sharing yang berisi informasi penyewaan sepeda berdasarkan berbagai faktor seperti cuaca, musim, hari, dll.
 
 ## 📚 Author
 
 Muhammad Hasan Fadhlillah
-
-<div align="center">
-  <br>
-  <p>
-    <a href="#"><img src="/api/placeholder/20/20" alt="GitHub"/> GitHub</a> •
-    <a href="#"><img src="/api/placeholder/20/20" alt="LinkedIn"/> LinkedIn</a> •
-    <a href="#"><img src="/api/placeholder/20/20" alt="Email"/> Kontak</a>
-  </p>
-</div>
