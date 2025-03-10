@@ -15,8 +15,14 @@ st.set_page_config(page_title="Bike Sharing Analysis", page_icon="🚲", layout=
 @st.cache_data
 def load_data():
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    day_data = os.path.join(script_dir, 'hour_data.csv')
-    hour_data = os.path.join(script_dir, 'day_data.csv')
+    
+    # Load CSV files using pandas
+    day_data_path = os.path.join(script_dir, 'day_data.csv')
+    hour_data_path = os.path.join(script_dir, 'hour_data.csv')
+    
+    # Read the CSV files into DataFrames
+    day_data = pd.read_csv(day_data_path)
+    hour_data = pd.read_csv(hour_data_path)
     
     # Convert date column to datetime
     day_data['dteday'] = pd.to_datetime(day_data['dteday'])
