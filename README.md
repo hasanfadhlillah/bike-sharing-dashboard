@@ -24,14 +24,16 @@ Dashboard ini menganalisis data bike sharing untuk mengidentifikasi pola dan tre
 bike-sharing-dashboard/
 │
 ├── dashboard/
-│   └── dashboard.py       # File utama aplikasi Streamlit
+│   ├── dashboard.py       # File utama aplikasi Streamlit
+│   ├── day.csv            # Salinan dataset per hari (untuk aplikasi dashboard)
+│   ├── hour.csv           # Salinan dataset per jam (untuk aplikasi dashboard)
+│   └── requirements.txt   # Daftar package yang dibutuhkan
 │
 ├── data/
 │   ├── day.csv            # Dataset per hari
 │   └── hour.csv           # Dataset per jam
 │
 ├── README.md              # Dokumentasi proyek
-├── requirements.txt       # Daftar package yang dibutuhkan
 ├── notebook.ipynb         # Notebook analisis data
 ├── rangkuman_insight.txt  # Rangkuman insight analisis data
 └── url.txt                # URL dashboard streamlit cloud
@@ -40,6 +42,7 @@ bike-sharing-dashboard/
 ## ⚙️ Setup Environment
 
 ### Menggunakan Anaconda
+
 ```bash
 # Membuat environment baru
 conda create --name bike-env python=3.10
@@ -50,6 +53,7 @@ pip install streamlit pandas numpy matplotlib seaborn scikit-learn
 ```
 
 ### Menggunakan Python venv
+
 ```bash
 # Membuat virtual environment
 python -m venv venv
@@ -62,7 +66,9 @@ pip install streamlit pandas numpy matplotlib seaborn scikit-learn
 ```
 
 ### Menggunakan requirements.txt
+
 Anda juga dapat menginstall semua package yang dibutuhkan secara langsung menggunakan file requirements.txt:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -72,9 +78,11 @@ pip install -r requirements.txt
 1. Pastikan struktur direktori sudah benar dengan folder `data` yang berisi file CSV berada di tempat yang tepat
 2. Arahkan terminal ke direktori dashboard
 3. Jalankan aplikasi dengan perintah:
+
 ```bash
 streamlit run dashboard.py
 ```
+
 4. Aplikasi akan terbuka secara otomatis di browser dengan alamat default:
    - Local URL: http://localhost:8501
    - Network URL: http://192.168.xxx.xxx:8501
@@ -82,29 +90,35 @@ streamlit run dashboard.py
 ## 📊 Dashboard Features
 
 ### 1. Overview
+
 - Metrik total penyewaan, rata-rata penyewaan harian, dan total hari
 - Visualisasi tren bulanan rata-rata penyewaan sepeda
 
 ### 2. Time Analysis
+
 - Pola penyewaan berdasarkan jam
 - Pola penyewaan berdasarkan hari dalam seminggu
 - Pola penyewaan berdasarkan musim
 
 ### 3. Weather Analysis
+
 - Dampak kondisi cuaca terhadap jumlah penyewaan
 - Hubungan suhu dengan jumlah penyewaan
 
 ### 4. Clustering
+
 - Analisis klaster untuk mengidentifikasi pola penyewaan berdasarkan jam dan hari
 
 ## ⚠️ Troubleshooting
 
 Jika Anda mendapatkan error seperti berikut:
+
 ```
 FileNotFoundError: [Errno 2] No such file or directory: 'data/day.csv'
 ```
 
 Pastikan bahwa:
+
 1. Folder `data` berada di lokasi yang benar (sebaiknya di folder yang sama dengan file `dashboard.py`)
 2. File `day.csv` dan `hour.csv` berada di dalam folder `data`
 3. Pastikan path pada kode benar. Jika perlu, ubah path di file `dashboard.py`:
