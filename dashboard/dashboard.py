@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import calendar
+import os
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
@@ -13,8 +14,9 @@ st.set_page_config(page_title="Bike Sharing Analysis", page_icon="🚲", layout=
 # Load dataset
 @st.cache_data
 def load_data():
-    day_data = pd.read_csv('day.csv')
-    hour_data = pd.read_csv('hour.csv')
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    day_data = os.path.join(script_dir, 'hour_data.csv')
+    hour_data = os.path.join(script_dir, 'day_data.csv')
     
     # Convert date column to datetime
     day_data['dteday'] = pd.to_datetime(day_data['dteday'])
