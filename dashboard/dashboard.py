@@ -17,8 +17,8 @@ def load_data():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     
     # Load CSV files using pandas
-    day_data_path = os.path.join(script_dir, 'day_data.csv')
-    hour_data_path = os.path.join(script_dir, 'hour_data.csv')
+    day_data_path = os.path.join(script_dir, 'day.csv')
+    hour_data_path = os.path.join(script_dir, 'hour.csv')
     
     # Read the CSV files into DataFrames
     day_data = pd.read_csv(day_data_path)
