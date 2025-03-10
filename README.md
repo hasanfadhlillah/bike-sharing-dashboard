@@ -2,6 +2,8 @@
 
 Sebuah dashboard interaktif untuk menganalisis pola dan tren penggunaan sepeda menggunakan Streamlit.
 
+![Bike Sharing Dashboard Preview](https://i.ibb.co/Qphk1L2/bike-dashboard-preview.jpg)
+
 ## 📋 Deskripsi Proyek
 
 Dashboard ini menganalisis data bike sharing untuk mengidentifikasi pola dan tren penggunaan. Dashboard ini mencakup beberapa fitur analisis:
