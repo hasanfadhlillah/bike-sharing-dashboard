@@ -1,0 +1,83 @@
+Rangkuman Insight dari Setiap Tahapan Analisis  
+
+
+1. Gathering Data
+- Dataset Harian (day_data)  
+	- Dataset terdiri dari 731 baris dan 16 kolom.  
+	- Kolom utama meliputi season, yr, mnth, holiday, weekday, workingday, 	weathersit, temp, atemp, hum, windspeed, casual, registered, dan cnt.  
+	- Rentang waktu mencakup dari 2011-01-01 hingga 2012-12-31.  
+- Dataset Per Jam (hour_data)  
+	- Terdiri dari 17.379 baris dan 17 kolom. Kolom tambahan adalah hr (jam).  
+	- Rentang waktu yang sama dengan dataset harian.  
+- Insight: Dataset mencakup dua tahun penuh dengan granularitas harian dan per jam, 	memungkinkan analisis pola penyewaan sepeda berdasarkan waktu dan kondisi 	cuaca.  
+
+
+2. Assessing Data  
+- Missing Values: Tidak ada missing values di kedua dataset.  
+- Duplikat: Tidak ada duplikat di kedua dataset.  
+- Statistik Deskriptif:
+	- Penyewaan harian (cnt) memiliki rata-rata 4504 penyewaan per hari dengan 	rentang 22 hingga 8714.  
+	- Penyewaan per jam (cnt) memiliki rata-rata 189,46 penyewaan per jam 	dengan rentang 1 hingga 977.  
+	- Mayoritas kondisi cuaca adalah Clear (1) dan Mist (2), sementara kondisi 	ekstrem seperti hujan lebat atau salju jarang terjadi.  
+- Insight: Penyewaan sepeda bervariasi secara signifikan tergantung pada waktu dan 	kondisi cuaca.  
+
+
+3. Cleaning Data  
+- Konversi Tipe Data  
+	- Kolom dteday diubah menjadi datetime.  
+	- Kolom kategorikal seperti season, yr, mnth, holiday, weekday, workingday, 	dan weathersit diubah menjadi tipe category.  
+- Penambahan Kolom Baru  
+	- Kolom season_name, month_name, weekday_name, dan weather_name ditambahkan 	untuk memudahkan interpretasi.  
+- Insight: Penambahan kolom baru memudahkan visualisasi dan interpretasi data.  
+
+
+4. Exploratory Data Analysis (EDA)  
+Pola Penggunaan Sepeda Berdasarkan Waktu  
+- Pola Bulanan  
+	- Penyewaan tertinggi terjadi pada bulan Agustus dan September (musim 	panas).  
+	- Penyewaan terendah terjadi pada bulan November dan Desember (musim 	dingin).  
+- Pola Harian  
+	- Penyewaan lebih tinggi pada hari kerja (Senin-Jumat), terutama pada Kamis 	dan Jumat.  
+	- Penyewaan lebih rendah pada akhir pekan (Sabtu-Minggu), tetapi lebih 	merata sepanjang hari.  
+- Pola Jam  
+	- Terdapat dua puncak penyewaan pada jam 8 pagi dan 5-6 sore, menunjukkan 	penggunaan untuk commuting.  
+	- Penyewaan rendah terjadi antara jam 12 malam hingga 5 pagi.  
+- Insight: Penyewaan sepeda memiliki pola yang jelas berdasarkan waktu, dengan 	puncak pada jam sibuk, hari kerja, dan musim panas.  
+
+5. Pengaruh Cuaca Terhadap Penyewaan  
+- Cuaca Cerah (Clear)  
+	- Penyewaan tertinggi, terutama pada hari kerja dan Sabtu.  
+	- Penyewaan meningkat pada suhu 20-30°C.  
+- Cuaca Buruk (Hujan/Salju)  
+	- Penyewaan terendah, terutama pada Minggu.  
+- Korelasi Suhu  
+	- Suhu memiliki korelasi positif kuat (0,63) dengan jumlah penyewaan.  
+	- Kelembaban memiliki korelasi negatif (-0,10) dengan jumlah penyewaan.  
+- Insight: Cuaca cerah dan suhu hangat meningkatkan penyewaan, sedangkan cuaca 	buruk mengurangi penyewaan.  
+
+
+6. Visualization and Explanatory Analysis  
+Pertanyaan 1: Pola Penggunaan Sepeda Berdasarkan Waktu  
+- Jawaban: Penyewaan sepeda memiliki pola yang jelas berdasarkan waktu, dengan 	puncak pada jam sibuk, hari kerja, dan musim panas.  
+- Rekomendasi:  
+	- Tingkatkan ketersediaan sepeda pada jam sibuk dan musim panas.  
+	- Lakukan promosi khusus pada akhir pekan untuk meningkatkan penyewaan.  
+
+Pertanyaan 2: Pengaruh Cuaca Terhadap Penyewaan  
+- Jawaban: Kondisi cuaca memiliki pengaruh signifikan terhadap penyewaan. Cuaca 	cerah dan suhu hangat meningkatkan penyewaan, sedangkan cuaca buruk 	mengurangi penyewaan.  
+- Rekomendasi:  
+	- Tingkatkan promosi pada hari-hari dengan cuaca cerah.  
+	- Berikan insentif (diskon) pada hari-hari dengan cuaca buruk untuk menarik 	minat penyewaan.  
+
+
+7. Clustering  
+- Cluster 1 (Hari Kerja: Senin-Jumat): Pola penyewaan menunjukkan penggunaan untuk commuting.  
+- Cluster 2 (Sabtu): Pola penyewaan menunjukkan penggunaan untuk rekreasi.  
+- Cluster 3 (Minggu): Pola penyewaan menunjukkan aktivitas yang lebih santai.  
+- Insight: Penyewaan sepeda didominasi oleh pengguna commuting pada hari kerja, 	pengguna rekreasi pada Sabtu, dan aktivitas santai pada Minggu.  
+
+
+8. Conclusion  
+- Pola Waktu: Penyewaan sepeda memiliki pola yang jelas berdasarkan waktu, dengan 	puncak pada jam sibuk, hari kerja, dan musim panas.  
+- Pengaruh Cuaca: Cuaca cerah dan suhu hangat meningkatkan minat penyewaan, 	sedangkan cuaca buruk mengurangi minat penyewaan.  
+- Rekomendasi: Optimalkan ketersediaan sepeda pada periode puncak dan berikan 	insentif pada periode rendah untuk meningkatkan pendapatan.  
