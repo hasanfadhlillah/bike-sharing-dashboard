@@ -13,8 +13,8 @@ st.set_page_config(page_title="Bike Sharing Analysis", page_icon="🚲", layout=
 # Load dataset
 @st.cache_data
 def load_data():
-    day_data = pd.read_csv('../data/day.csv')
-    hour_data = pd.read_csv('../data/hour.csv')
+    day_data = pd.read_csv('day.csv')
+    hour_data = pd.read_csv('hour.csv')
     
     # Convert date column to datetime
     day_data['dteday'] = pd.to_datetime(day_data['dteday'])
