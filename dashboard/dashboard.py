@@ -99,7 +99,7 @@ if page == "Gambaran Umum":
     
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.barplot(x=monthly_rentals.index, y=monthly_rentals.values, ax=ax, palette="Blues_d")
-    plt.title("Rata-rata Penyewaan Harian per Bulan")
+    plt.title("Rata-rata Penyewaan per Bulan")
     plt.xlabel("Bulan")
     plt.ylabel("Rata-rata Penyewaan")
     plt.xticks(rotation=45)
@@ -220,8 +220,8 @@ elif page == "Analisis Cuaca":
             palette="Set1"
         )
         plt.title("Hubungan Suhu dengan Jumlah Penyewaan")
-        plt.xlabel("Suhu (Normalisasi)")
-        plt.ylabel("Total Penyewaan")
+        plt.xlabel("Suhu (°C)")
+        plt.ylabel("Jumlah Penyewaan")
         plt.legend(title="Musim")
         st.pyplot(fig)
 
