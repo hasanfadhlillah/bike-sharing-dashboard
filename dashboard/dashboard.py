@@ -7,7 +7,7 @@ import os
 from datetime import datetime
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Analisis Bike Sharing", page_icon="🚲", layout="wide")
+st.set_page_config(page_title="Bike Sharing Analysis Dashboard", page_icon="🚲", layout="wide")
 
 # Fungsi untuk memuat data
 @st.cache_data
