@@ -4,36 +4,35 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import calendar
 import os
-from sklearn.preprocessing import StandardScaler
 from datetime import datetime
 
-# Set page config
-st.set_page_config(page_title="Bike Sharing Analysis", page_icon="🚲", layout="wide")
+# Konfigurasi halaman
+st.set_page_config(page_title="Analisis Bike Sharing", page_icon="🚲", layout="wide")
 
-# Load dataset
+# Fungsi untuk memuat data
 @st.cache_data
 def load_data():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     
-    # Load CSV files using pandas
+    # Memuat file CSV
     day_data_path = os.path.join(script_dir, 'day.csv')
     hour_data_path = os.path.join(script_dir, 'hour.csv')
     
-    # Read the CSV files into DataFrames
+    # Membaca file CSV ke DataFrame
     day_data = pd.read_csv(day_data_path)
     hour_data = pd.read_csv(hour_data_path)
     
-    # Convert date column to datetime
+    # Konversi kolom tanggal ke datetime
     day_data['dteday'] = pd.to_datetime(day_data['dteday'])
     hour_data['dteday'] = pd.to_datetime(hour_data['dteday'])
     
-    # Convert categorical columns to category type
+    # Konversi kolom kategorikal
     categorical_cols = ['season', 'yr', 'mnth', 'holiday', 'weekday', 'workingday', 'weathersit']
     for col in categorical_cols:
         day_data[col] = day_data[col].astype('category')
         hour_data[col] = hour_data[col].astype('category')
     
-    # Add season, month, and weekday names
+    # Menambahkan nama musim, bulan, dan hari
     season_mapping = {1: 'Spring', 2: 'Summer', 3: 'Fall', 4: 'Winter'}
     month_mapping = {i: calendar.month_name[i] for i in range(1, 13)}
     weekday_mapping = {0: 'Sunday', 1: 'Monday', 2: 'Tuesday', 3: 'Wednesday', 4: 'Thursday', 5: 'Friday', 6: 'Saturday'}
@@ -51,46 +50,46 @@ def load_data():
     
     return day_data, hour_data
 
-# Load data
+# Memuat data
 day_data, hour_data = load_data()
 
-# Sidebar navigation and filters
-st.sidebar.title("Filters")
-page = st.sidebar.radio("Navigation", ["Overview", "Time Analysis", "Weather Analysis", "Clustering"])
+# Sidebar navigasi dan filter
+st.sidebar.title("Filter")
+page = st.sidebar.radio("Navigasi", ["Gambaran Umum", "Analisis Waktu", "Analisis Cuaca", "Analisis Lanjutan"])
 
-# Date range filter (applies to all pages)
+# Filter rentang tanggal
 min_date = day_data['dteday'].min()
 max_date = day_data['dteday'].max()
-start_date = st.sidebar.date_input("Start Date", min_date, min_value=min_date, max_value=max_date)
-end_date = st.sidebar.date_input("End Date", max_date, min_value=min_date, max_value=max_date)
+start_date = st.sidebar.date_input("Tanggal Mulai", min_date, min_value=min_date, max_value=max_date)
+end_date = st.sidebar.date_input("Tanggal Akhir", max_date, min_value=min_date, max_value=max_date)
 
-# Convert to datetime
+# Konversi ke datetime
 start_date = datetime.combine(start_date, datetime.min.time())
 end_date = datetime.combine(end_date, datetime.min.time())
 
-# Filter data based on date range
+# Filter data berdasarkan rentang tanggal
 day_data_filtered = day_data[(day_data['dteday'] >= start_date) & (day_data['dteday'] <= end_date)]
 hour_data_filtered = hour_data[(hour_data['dteday'] >= start_date) & (hour_data['dteday'] <= end_date)]
 
-if page == "Overview":
-    st.title("🚲 Bike Sharing Analysis Dashboard")
-    st.markdown("Analyze bike sharing patterns based on time and weather conditions.")
+if page == "Gambaran Umum":
+    st.title("🚲 Dashboard Analisis Bike Sharing")
+    st.markdown("Analisis pola penyewaan sepeda berdasarkan waktu dan kondisi cuaca.")
     
-    # Key metrics
+    # Metrik utama
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("Total Rentals", f"{day_data_filtered['cnt'].sum():,}")
+        st.metric("Total Penyewaan", f"{day_data_filtered['cnt'].sum():,}")
     with col2:
-        st.metric("Average Daily Rentals", f"{int(day_data_filtered['cnt'].mean()):,}")
+        st.metric("Rata-rata Penyewaan Harian", f"{int(day_data_filtered['cnt'].mean()):,}")
     with col3:
-        st.metric("Days Analyzed", f"{len(day_data_filtered):,}")
+        st.metric("Jumlah Hari Dianalisis", f"{len(day_data_filtered):,}")
     
-    # Monthly trend with interactive filter
-    st.subheader("Monthly Rental Trends")
+    # Tren bulanan dengan filter interaktif
+    st.subheader("Tren Penyewaan Bulanan")
     
-    # Add season filter
+    # Filter musim
     selected_seasons = st.multiselect(
-        "Select Seasons",
+        "Pilih Musim",
         options=['Spring', 'Summer', 'Fall', 'Winter'],
         default=['Spring', 'Summer', 'Fall', 'Winter']
     )
@@ -100,46 +99,46 @@ if page == "Overview":
     
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.barplot(x=monthly_rentals.index, y=monthly_rentals.values, ax=ax, palette="Blues_d")
-    plt.title("Average Daily Rentals by Month")
-    plt.xlabel("Month")
-    plt.ylabel("Average Rentals")
+    plt.title("Rata-rata Penyewaan Harian per Bulan")
+    plt.xlabel("Bulan")
+    plt.ylabel("Rata-rata Penyewaan")
     plt.xticks(rotation=45)
     st.pyplot(fig)
 
-elif page == "Time Analysis":
-    st.title("⏰ Time-based Analysis")
+elif page == "Analisis Waktu":
+    st.title("⏰ Analisis Berdasarkan Waktu")
     
-    # Interactive tabs for different time dimensions
-    tab1, tab2, tab3 = st.tabs(["Hourly", "Daily", "Seasonal"])
+    # Tab interaktif untuk dimensi waktu berbeda
+    tab1, tab2, tab3 = st.tabs(["Per Jam", "Per Hari", "Per Musim"])
     
     with tab1:
-        st.subheader("Hourly Rental Pattern")
+        st.subheader("Pola Penyewaan per Jam")
         
-        # Add day type filter
+        # Filter jenis hari
         day_type = st.selectbox(
-            "Select Day Type",
-            options=["All Days", "Weekdays", "Weekends"],
+            "Pilih Jenis Hari",
+            options=["Semua Hari", "Hari Kerja", "Akhir Pekan"],
             index=0
         )
         
-        if day_type == "Weekdays":
+        if day_type == "Hari Kerja":
             hour_data_filtered = hour_data_filtered[hour_data_filtered['weekday'].isin([1,2,3,4,5])]
-        elif day_type == "Weekends":
+        elif day_type == "Akhir Pekan":
             hour_data_filtered = hour_data_filtered[hour_data_filtered['weekday'].isin([0,6])]
         
         hourly_rentals = hour_data_filtered.groupby('hr')['cnt'].mean()
         
         fig, ax = plt.subplots(figsize=(12, 6))
         sns.lineplot(x=hourly_rentals.index, y=hourly_rentals.values, marker='o', ax=ax, color='darkblue', linewidth=2)
-        plt.title(f"Average Rentals by Hour ({day_type})")
-        plt.xlabel("Hour of Day")
-        plt.ylabel("Average Rentals")
+        plt.title(f"Rata-rata Penyewaan per Jam ({day_type})")
+        plt.xlabel("Jam")
+        plt.ylabel("Rata-rata Penyewaan")
         plt.xticks(range(0, 24))
         plt.grid(True, alpha=0.3)
         st.pyplot(fig)
     
     with tab2:
-        st.subheader("Daily Rental Pattern")
+        st.subheader("Pola Penyewaan per Hari")
         
         daily_rentals = day_data_filtered.groupby('weekday_name')['cnt'].mean().reindex(
             ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -147,14 +146,14 @@ elif page == "Time Analysis":
         
         fig, ax = plt.subplots(figsize=(12, 6))
         sns.barplot(x=daily_rentals.index, y=daily_rentals.values, ax=ax, palette="Blues_d")
-        plt.title("Average Rentals by Day of Week")
-        plt.xlabel("Day of Week")
-        plt.ylabel("Average Rentals")
+        plt.title("Rata-rata Penyewaan per Hari")
+        plt.xlabel("Hari")
+        plt.ylabel("Rata-rata Penyewaan")
         plt.xticks(rotation=45)
         st.pyplot(fig)
     
     with tab3:
-        st.subheader("Seasonal Rental Pattern")
+        st.subheader("Pola Penyewaan per Musim")
         
         seasonal_rentals = day_data_filtered.groupby('season_name')['cnt'].mean().reindex(
             ['Spring', 'Summer', 'Fall', 'Winter']
@@ -162,23 +161,23 @@ elif page == "Time Analysis":
         
         fig, ax = plt.subplots(figsize=(12, 6))
         sns.barplot(x=seasonal_rentals.index, y=seasonal_rentals.values, ax=ax, palette="Blues_d")
-        plt.title("Average Rentals by Season")
-        plt.xlabel("Season")
-        plt.ylabel("Average Rentals")
+        plt.title("Rata-rata Penyewaan per Musim")
+        plt.xlabel("Musim")
+        plt.ylabel("Rata-rata Penyewaan")
         st.pyplot(fig)
 
-elif page == "Weather Analysis":
-    st.title("🌤️ Weather Impact Analysis")
+elif page == "Analisis Cuaca":
+    st.title("🌤️ Analisis Dampak Cuaca")
     
-    # Interactive tabs for different weather visualizations
-    tab1, tab2 = st.tabs(["Weather Conditions", "Temperature Impact"])
+    # Tab interaktif untuk visualisasi cuaca berbeda
+    tab1, tab2 = st.tabs(["Kondisi Cuaca", "Pengaruh Suhu"])
     
     with tab1:
-        st.subheader("Impact of Weather Conditions")
+        st.subheader("Dampak Kondisi Cuaca")
         
-        # Add weather type filter
+        # Filter jenis cuaca
         weather_types = st.multiselect(
-            "Select Weather Types",
+            "Pilih Jenis Cuaca",
             options=['Clear', 'Mist', 'Light Snow/Rain', 'Heavy Rain/Snow'],
             default=['Clear', 'Mist', 'Light Snow/Rain']
         )
@@ -194,17 +193,17 @@ elif page == "Weather Analysis":
             ax=ax,
             palette="Blues"
         )
-        plt.title("Distribution of Rentals by Weather Condition")
-        plt.xlabel("Weather Condition")
-        plt.ylabel("Number of Rentals")
+        plt.title("Distribusi Penyewaan Berdasarkan Kondisi Cuaca")
+        plt.xlabel("Kondisi Cuaca")
+        plt.ylabel("Jumlah Penyewaan")
         st.pyplot(fig)
     
     with tab2:
-        st.subheader("Temperature vs Rentals")
+        st.subheader("Hubungan Suhu dengan Penyewaan")
         
-        # Add season filter
+        # Filter musim
         selected_seasons = st.multiselect(
-            "Select Seasons for Temperature Analysis",
+            "Pilih Musim untuk Analisis Suhu",
             options=['Spring', 'Summer', 'Fall', 'Winter'],
             default=['Summer', 'Fall']
         )
@@ -220,72 +219,108 @@ elif page == "Weather Analysis":
             ax=ax,
             palette="Set1"
         )
-        plt.title("Temperature vs Total Rentals")
-        plt.xlabel("Normalized Temperature")
-        plt.ylabel("Total Rentals")
-        plt.legend(title="Season")
+        plt.title("Hubungan Suhu dengan Jumlah Penyewaan")
+        plt.xlabel("Suhu (Normalisasi)")
+        plt.ylabel("Total Penyewaan")
+        plt.legend(title="Musim")
         st.pyplot(fig)
 
-elif page == "Clustering":
-    st.title("📊 Clustering Analysis")
+elif page == "Analisis Lanjutan":
+    st.title("📊 Analisis Lanjutan")
     
-    st.subheader("Hourly Rental Patterns Clustering")
+    st.subheader("Pola Penyewaan per Jam Berdasarkan Hari")
     
-    # Create pivot table for hourly patterns
+    # Membuat pivot table untuk pola per jam
     hourly_pattern = hour_data_filtered.pivot_table(
-        index='weekday', 
+        index='weekday_name', 
         columns='hr', 
         values='cnt', 
         aggfunc='mean'
     )
     
-    # Standardize data
-    scaler = StandardScaler()
-    hourly_pattern_scaled = scaler.fit_transform(hourly_pattern)
+    # Mengelompokkan secara manual
+    weekday_pattern = hourly_pattern.loc[['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']].mean()
+    saturday_pattern = hourly_pattern.loc['Saturday']
+    sunday_pattern = hourly_pattern.loc['Sunday']
     
-    # Perform KMeans clustering
-    kmeans = KMeans(n_clusters=3, random_state=42)
-    cluster_labels = kmeans.fit_predict(hourly_pattern_scaled)
-    hourly_pattern['cluster'] = cluster_labels
-    
-    # Visualize clusters
+    # Visualisasi hasil grouping manual
     fig, ax = plt.subplots(figsize=(16, 8))
-    for cluster in range(3):
-        cluster_data = hourly_pattern[hourly_pattern['cluster'] == cluster].drop('cluster', axis=1)
-        hourly_counts = cluster_data.mean()
-        plt.plot(
-            hourly_counts.index,
-            hourly_counts.values,
-            marker='o',
-            linewidth=2,
-            label=f'Cluster {cluster+1}'
-        )
+    plt.plot(weekday_pattern.index, weekday_pattern.values, marker='o', linewidth=2, label='Hari Kerja (Senin-Jumat)')
+    plt.plot(saturday_pattern.index, saturday_pattern.values, marker='o', linewidth=2, label='Sabtu')
+    plt.plot(sunday_pattern.index, sunday_pattern.values, marker='o', linewidth=2, label='Minggu')
     
-    plt.title("Hourly Rental Patterns by Cluster")
-    plt.xlabel("Hour of Day")
-    plt.ylabel("Average Rentals")
+    plt.title("Pola Penyewaan Sepeda Per Jam Berdasarkan Hari")
+    plt.xlabel("Jam")
+    plt.ylabel("Rata-rata Jumlah Penyewaan")
     plt.xticks(range(0, 24))
     plt.grid(True, alpha=0.3)
-    plt.legend()
+    plt.legend(fontsize=12)
     st.pyplot(fig)
     
-    # Interpret clusters
-    st.subheader("Cluster Interpretation")
-    cluster_days = {}
-    weekday_names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    for cluster in range(3):
-        days_in_cluster = hourly_pattern[hourly_pattern['cluster'] == cluster].index
-        cluster_days[f'Cluster {cluster+1}'] = [weekday_names[day] for day in days_in_cluster]
+    # Interpretasi pola
+    st.subheader("Interpretasi Pola")
+    st.markdown("""
+    - **Hari Kerja (Senin-Jumat):**  
+      - Terlihat **dua puncak jelas** di jam **8 pagi** dan **17-18 sore**, menunjukkan pola khas **commuting** (pergi/pulang kerja).  
+      - Penyewaan rendah di jam **10 malam hingga 4 pagi**.  
+    - **Sabtu:**  
+      - Pola lebih landai dengan puncak di **siang hari (12-16)**.  
+      - Menunjukkan penggunaan untuk **aktivitas rekreasi** di akhir pekan.  
+    - **Minggu:**  
+      - Puncak lebih rendah dibanding Sabtu, terjadi di **11 pagi-14 siang**.  
+      - Pola lebih santai, mungkin untuk aktivitas keluarga atau olahraga ringan.  
+    """)
     
-    for cluster, days in cluster_days.items():
-        st.markdown(f"**{cluster}**: {', '.join(days)}")
-        
-        if cluster == "Cluster 1":
-            st.markdown("- **Pattern**: Two peaks at 8 AM and 5-6 PM")
-            st.markdown("- **Interpretation**: Typical commuting pattern")
-        elif cluster == "Cluster 2":
-            st.markdown("- **Pattern**: Gradual increase peaking at noon")
-            st.markdown("- **Interpretation**: Weekend recreational use")
-        else:
-            st.markdown("- **Pattern**: Lower activity peaking midday")
-            st.markdown("- **Interpretation**: Sunday leisure pattern")
+    st.subheader("Rekomendasi:")
+    st.markdown("""
+    - **Optimalkan ketersediaan sepeda** di jam sibuk weekdays (7-9 pagi dan 16-18 sore).  
+    - **Tawarkan paket weekend** di Sabtu-Minggu (contoh: sewa 4 jam dengan diskon).  
+    - **Kurangi operasional** di dini hari (00.00-05.00) karena permintaan sangat rendah.  
+    """)
+    
+    # RFM Analysis sederhana
+    st.subheader("Segmentasi Pengguna Terdaftar (RFM Analysis)")
+    
+    rfm_data = day_data_filtered.copy()
+    rfm_data['recency'] = (rfm_data['dteday'].max() - rfm_data['dteday']).dt.days
+    rfm_data['frequency'] = rfm_data.groupby('weekday')['registered'].transform('count')
+    rfm_data['monetary'] = rfm_data['registered']
+    
+    # Segmentasi manual
+    rfm_data['segment'] = 'Low'
+    rfm_data.loc[(rfm_data['recency'] <= 30) & 
+                 (rfm_data['frequency'] >= 20) & 
+                 (rfm_data['monetary'] >= 3000), 'segment'] = 'High'
+    rfm_data.loc[(rfm_data['recency'] <= 60) & 
+                 (rfm_data['frequency'] >= 15) & 
+                 (rfm_data['monetary'] >= 2000), 'segment'] = 'Medium'
+    
+    # Visualisasi
+    segment_counts = rfm_data['segment'].value_counts()
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x=segment_counts.index, y=segment_counts.values, palette='Blues_d')
+    plt.title('Segmentasi Pengguna Terdaftar Berdasarkan RFM')
+    plt.xlabel('Segment')
+    plt.ylabel('Jumlah Hari')
+    st.pyplot(fig)
+    
+    st.subheader("Interpretasi Segmentasi RFM")
+    st.markdown("""
+    - **High Value:**  
+      - Hari dengan aktivitas pengguna terdaftar **tinggi** (recency ≤30 hari, frekuensi ≥20, penyewaan ≥3000).  
+      - Contoh: Hari kerja di musim panas dengan cuaca cerah.  
+    - **Medium Value:**  
+      - Aktivitas **sedang** (recency ≤60 hari, frekuensi ≥15, penyewaan ≥2000).  
+    - **Low Value:**  
+      - Hari dengan **aktivitas minimal**, seperti musim dingin atau cuaca buruk.  
+    """)
+    
+    st.subheader("Rekomendasi Segmentasi RFM:")
+    st.markdown("""
+    - **Pertahankan High Value Days**:  
+      - Berikan layanan premium (contoh: prioritas peminjaman sepeda).  
+    - **Tingkatkan Low Value Days**:  
+      - Promosi diskon 20-30% atau paket bulanan untuk menarik pengguna.  
+    - **Analisis penyebab**:  
+      - Cek apakah Low Value Days terkait cuaca/musim, lalu siapkan strategi mitigasi.  
+    """)
