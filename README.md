@@ -27,7 +27,6 @@ bike-sharing-dashboard/
 │   ├── dashboard.py       # File utama aplikasi Streamlit
 │   ├── day.csv            # Salinan dataset per hari (untuk aplikasi dashboard)
 │   ├── hour.csv           # Salinan dataset per jam (untuk aplikasi dashboard)
-│   └── requirements.txt   # Daftar package yang dibutuhkan
 │
 ├── data/
 │   ├── day.csv            # Dataset per hari
@@ -35,7 +34,8 @@ bike-sharing-dashboard/
 │
 ├── README.md              # Dokumentasi proyek
 ├── notebook.ipynb         # Notebook analisis data
-├── rangkuman_insight.txt  # Rangkuman insight analisis data
+├── rangkuman_insight.txt  # Rangkuman insight analisis data\
+├── requirements.txt       # Daftar package yang dibutuhkan
 └── url.txt                # URL dashboard streamlit cloud
 ```
 
