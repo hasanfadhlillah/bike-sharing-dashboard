@@ -72,7 +72,7 @@ day_data_filtered = day_data[(day_data['dteday'] >= start_date) & (day_data['dte
 hour_data_filtered = hour_data[(hour_data['dteday'] >= start_date) & (hour_data['dteday'] <= end_date)]
 
 if page == "Overview":
-    st.title("🚲 Dashboard Analisis Bike Sharing")
+    st.title("🚲 Bike Sharing Analysis Dashboard")
     st.markdown("Analisis pola penyewaan sepeda berdasarkan waktu dan kondisi cuaca.")
     
     # Metrik utama
