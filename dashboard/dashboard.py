@@ -55,7 +55,7 @@ day_data, hour_data = load_data()
 
 # Sidebar navigasi dan filter
 st.sidebar.title("Filter")
-page = st.sidebar.radio("Navigasi", ["Gambaran Umum", "Analisis Waktu", "Analisis Cuaca", "Analisis Lanjutan"])
+page = st.sidebar.radio("Navigasi", ["Overview", "Analisis Waktu", "Analisis Cuaca", "Analisis Lanjutan"])
 
 # Filter rentang tanggal
 min_date = day_data['dteday'].min()
@@ -71,7 +71,7 @@ end_date = datetime.combine(end_date, datetime.min.time())
 day_data_filtered = day_data[(day_data['dteday'] >= start_date) & (day_data['dteday'] <= end_date)]
 hour_data_filtered = hour_data[(hour_data['dteday'] >= start_date) & (hour_data['dteday'] <= end_date)]
 
-if page == "Gambaran Umum":
+if page == "Overview":
     st.title("🚲 Dashboard Analisis Bike Sharing")
     st.markdown("Analisis pola penyewaan sepeda berdasarkan waktu dan kondisi cuaca.")
     
