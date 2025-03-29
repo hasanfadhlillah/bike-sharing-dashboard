@@ -26,7 +26,7 @@ bike-sharing-dashboard/
 ├── dashboard/
 │   ├── dashboard.py       # File utama aplikasi Streamlit
 │   ├── day.csv            # Salinan dataset per hari (untuk aplikasi dashboard)
-│   ├── hour.csv           # Salinan dataset per jam (untuk aplikasi dashboard)
+│   └── hour.csv           # Salinan dataset per jam (untuk aplikasi dashboard)
 │
 ├── data/
 │   ├── day.csv            # Dataset per hari
